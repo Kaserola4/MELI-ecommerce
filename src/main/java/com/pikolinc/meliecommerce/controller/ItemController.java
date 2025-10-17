@@ -2,6 +2,7 @@ package com.pikolinc.meliecommerce.controller;
 
 import com.pikolinc.meliecommerce.domain.dto.item.ItemCreateDTO;
 import com.pikolinc.meliecommerce.domain.dto.item.ItemResponseDTO;
+import com.pikolinc.meliecommerce.domain.dto.item.ItemUpdateDTO;
 import com.pikolinc.meliecommerce.service.ItemService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +40,13 @@ class ItemController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(this.itemService.addItem(itemCreateDTO));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ItemResponseDTO> updateItem(
+            @PathVariable Long id,
+            @Valid @RequestBody ItemUpdateDTO dto
+    ) {
+        return ResponseEntity.ok(itemService.updateItem(id, dto));
     }
 }

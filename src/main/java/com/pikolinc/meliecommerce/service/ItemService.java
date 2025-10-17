@@ -2,6 +2,7 @@ package com.pikolinc.meliecommerce.service;
 
 import com.pikolinc.meliecommerce.domain.dto.item.ItemCreateDTO;
 import com.pikolinc.meliecommerce.domain.dto.item.ItemResponseDTO;
+import com.pikolinc.meliecommerce.domain.dto.item.ItemUpdateDTO;
 import com.pikolinc.meliecommerce.domain.entity.Item;
 import com.pikolinc.meliecommerce.exception.NotFoundException;
 import com.pikolinc.meliecommerce.repository.ItemRepository;
@@ -39,6 +40,19 @@ public class ItemService {
 
         return toResponseDTO(savedItem);
     }
+
+    public ItemResponseDTO updateItem(Long id, ItemUpdateDTO itemUpdateDTO) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Item not found with id " + id));
+
+        item.setName(itemUpdateDTO.name());
+        item.setDescription(itemUpdateDTO.description());
+        item.setPrice(itemUpdateDTO.price());
+
+        Item updated = itemRepository.save(item);
+        return toResponseDTO(updated);
+    }
+
 
     private ItemResponseDTO toResponseDTO(Item item) {
         return new ItemResponseDTO(
