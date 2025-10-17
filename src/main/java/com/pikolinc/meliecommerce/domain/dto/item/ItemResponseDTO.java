@@ -4,6 +4,6 @@ public record ItemResponseDTO(
         Long id,
         String name,
         String description,
-        Float price
+        Double price
 ) {
 }

@@ -1,12 +1,13 @@
 package com.pikolinc.meliecommerce.controller;
 
 import com.pikolinc.meliecommerce.domain.dto.item.ItemCreateDTO;
-import com.pikolinc.meliecommerce.domain.entity.Item;
-import com.pikolinc.meliecommerce.exception.NotFoundException;
+import com.pikolinc.meliecommerce.domain.dto.item.ItemResponseDTO;
 import com.pikolinc.meliecommerce.service.ItemService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,23 +20,19 @@ class ItemController {
     private final ItemService itemService;
 
     @GetMapping({"", "/"})
-    public ResponseEntity<List<Item>> getAllItems(
+    public ResponseEntity<List<ItemResponseDTO>> getAllItems(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
 
-        List<Item> items = this.itemService.getAllItems(pageable); // Check
-
-        if (items.isEmpty()) {
-            throw new NotFoundException("No items found");
-        }
-
-        return ResponseEntity.ok(items);
+        return ResponseEntity.ok(this.itemService.getAllItems(pageable));
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<Item> addItem(@RequestBody ItemCreateDTO itemCreateDTO) {
-
+    public ResponseEntity<ItemResponseDTO> addItem(@Valid @RequestBody ItemCreateDTO itemCreateDTO) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(this.itemService.addItem(itemCreateDTO));
     }
 }
