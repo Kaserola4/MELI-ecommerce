@@ -29,6 +29,11 @@ class ItemController {
         return ResponseEntity.ok(this.itemService.getAllItems(pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ItemResponseDTO> getItem(@PathVariable Long id) {
+        return ResponseEntity.ok(itemService.getItemById(id));
+    }
+
     @PostMapping({"", "/"})
     public ResponseEntity<ItemResponseDTO> addItem(@Valid @RequestBody ItemCreateDTO itemCreateDTO) {
         return ResponseEntity
