@@ -53,6 +53,13 @@ public class ItemService {
         return toResponseDTO(updated);
     }
 
+    public void deleteItem(Long id) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Item not found with id " + id));
+
+        itemRepository.delete(item);
+    }
+
 
     private ItemResponseDTO toResponseDTO(Item item) {
         return new ItemResponseDTO(
