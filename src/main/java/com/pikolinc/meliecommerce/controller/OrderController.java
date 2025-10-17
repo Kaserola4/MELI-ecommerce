@@ -1,10 +1,57 @@
 package com.pikolinc.meliecommerce.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.pikolinc.meliecommerce.domain.dto.order.OrderCreateDTO;
+import com.pikolinc.meliecommerce.domain.dto.order.OrderResponseDTO;
+import com.pikolinc.meliecommerce.service.OrderService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/")
-class OrderController {
+@RequestMapping("api/v1/orders")
+@RequiredArgsConstructor
+public class OrderController {
+    private final OrderService orderService;
 
+    @GetMapping({"", "/"})
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrders(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return ResponseEntity.ok(this.orderService.getAllOrders(pageable));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponseDTO> getOrder(@PathVariable Long id) {
+        return ResponseEntity.ok(this.orderService.getOrderById(id));
+    }
+
+    @PostMapping({"", "/"})
+    public ResponseEntity<OrderResponseDTO> createOrder(@Valid @RequestBody OrderCreateDTO orderCreateDTO) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(this.orderService.createOrder(orderCreateDTO));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderResponseDTO> updateOrder(
+            @PathVariable Long id,
+            @Valid @RequestBody OrderCreateDTO orderCreateDTO
+    ) {
+        return ResponseEntity.ok(this.orderService.updateOrder(id, orderCreateDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+        this.orderService.deleteOrder(id);
+        return ResponseEntity.noContent().build();
+    }
 }
