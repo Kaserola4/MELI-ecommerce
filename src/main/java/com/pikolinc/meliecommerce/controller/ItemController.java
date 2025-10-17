@@ -1,5 +1,6 @@
 package com.pikolinc.meliecommerce.controller;
 
+import com.pikolinc.meliecommerce.domain.dto.item.ItemCreateDTO;
 import com.pikolinc.meliecommerce.domain.entity.Item;
 import com.pikolinc.meliecommerce.exception.NotFoundException;
 import com.pikolinc.meliecommerce.service.ItemService;
@@ -7,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,11 +18,11 @@ import java.util.List;
 class ItemController {
     private final ItemService itemService;
 
-    @RequestMapping("/")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<Item>> getAllItems(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
-        ) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
         Pageable pageable = PageRequest.of(page, size);
 
         List<Item> items = this.itemService.getAllItems(pageable); // Check
@@ -34,5 +32,10 @@ class ItemController {
         }
 
         return ResponseEntity.ok(items);
+    }
+
+    @PostMapping({"", "/"})
+    public ResponseEntity<Item> addItem(@RequestBody ItemCreateDTO itemCreateDTO) {
+
     }
 }
