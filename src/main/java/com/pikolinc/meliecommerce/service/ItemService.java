@@ -71,10 +71,10 @@ public class ItemService {
     }
 
     private Item toEntity(ItemCreateDTO itemCreateDTO) {
-        Item item = new Item();
-        item.setName(itemCreateDTO.name());
-        item.setPrice(itemCreateDTO.price());
-        item.setDescription(itemCreateDTO.description());
-        return item;
+        return Item.builder()
+                .name(itemCreateDTO.name())
+                .description(itemCreateDTO.description())
+                .price(itemCreateDTO.price())
+                .build();
     }
 }
