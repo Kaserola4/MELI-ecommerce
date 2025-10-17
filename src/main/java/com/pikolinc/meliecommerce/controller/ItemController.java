@@ -1,6 +1,7 @@
 package com.pikolinc.meliecommerce.controller;
 
 import com.pikolinc.meliecommerce.domain.entity.Item;
+import com.pikolinc.meliecommerce.exception.NotFoundException;
 import com.pikolinc.meliecommerce.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("api/v1/items")
 @RequiredArgsConstructor
 class ItemController {
     private final ItemService itemService;
@@ -29,7 +30,7 @@ class ItemController {
         List<Item> items = this.itemService.getAllItems(pageable); // Check
 
         if (items.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException("No items found");
         }
 
         return ResponseEntity.ok(items);
