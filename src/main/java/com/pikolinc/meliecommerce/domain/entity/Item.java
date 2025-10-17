@@ -27,7 +27,7 @@ public class Item {
     private String description;
 
     @Column(nullable = false)
-    private Float price;
+    private Double price;
 
     @OneToMany(mappedBy = "item")
     private List<Order> orders = new ArrayList<>();
