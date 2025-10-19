@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: MELI-ecommerce
+
+# Default profile (Development)
+  profiles:
+    active: dev
+
