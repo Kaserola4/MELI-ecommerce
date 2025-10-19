@@ -32,7 +32,7 @@ class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientResponseDTO> getClientByid(@PathVariable Long id) {
+    public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
         return ResponseEntity.ok(this.clientService.getClientById(id));
     }
 

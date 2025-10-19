@@ -26,7 +26,7 @@ public class ClientService {
 
         if (clients.isEmpty()) throw new NotFoundException("No clients found");
 
-        return clients.stream().map(this::toResponseDTO).toList();
+        return clients.stream().map(ClientService::toResponseDTO).toList();
     }
 
     public ClientResponseDTO getClientById(Long id) {
@@ -65,7 +65,7 @@ public class ClientService {
         clientRepository.delete(client);
     }
 
-    private ClientResponseDTO toResponseDTO(Client client) {
+    public static ClientResponseDTO toResponseDTO(Client client) {
         return new ClientResponseDTO(
                 client.getId(),
                 client.getName(),

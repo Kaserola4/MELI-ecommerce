@@ -22,7 +22,7 @@ public class ItemService {
 
         if (items.isEmpty()) throw new NotFoundException("No items found");
 
-        return items.stream().map(this::toResponseDTO).toList();
+        return items.stream().map(ItemService::toResponseDTO).toList();
     }
 
     public ItemResponseDTO getItemById(Long id) {
@@ -61,7 +61,7 @@ public class ItemService {
     }
 
 
-    private ItemResponseDTO toResponseDTO(Item item) {
+    public static ItemResponseDTO toResponseDTO(Item item) {
         return new ItemResponseDTO(
                 item.getId(),
                 item.getName(),
