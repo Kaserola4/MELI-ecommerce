@@ -1,6 +1,5 @@
 package com.pikolinc.meliecommerce.service;
 
-import com.pikolinc.meliecommerce.domain.dto.order.OrderCreateDTO;
 import com.pikolinc.meliecommerce.domain.dto.order.OrderCreateForClientDTO;
 import com.pikolinc.meliecommerce.domain.dto.order.OrderResponseDTO;
 import com.pikolinc.meliecommerce.domain.entity.Client;
@@ -35,7 +34,6 @@ public class ClientOrderService {
         }
 
         Page<Order> ordersPage = orderRepository.findByClientId(clientId, pageable);
-
         return ordersPage.stream()
                 .map(OrderService::toResponseDTO)
                 .toList();
