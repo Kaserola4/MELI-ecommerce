@@ -29,7 +29,7 @@ public class OrderService {
 
         return orderRepository.findAll(pageable)
                 .stream()
-                .map(this::toResponseDTO)
+                .map(OrderService::toResponseDTO)
                 .toList();
     }
 
@@ -80,11 +80,11 @@ public class OrderService {
         orderRepository.delete(order);
     }
 
-    private OrderResponseDTO toResponseDTO(Order order) {
+    public static OrderResponseDTO toResponseDTO(Order order) {
         return new OrderResponseDTO(
                 order.getId(),
-                order.getClient().getId(),
-                order.getItem().getId(),
+                ClientService.toResponseDTO(order.getClient()),
+                ItemService.toResponseDTO(order.getItem()),
                 order.getPurchaseDate(),
                 order.getDeliveryDate()
         );
