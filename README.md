@@ -1,6 +1,6 @@
 # MELI-ecommerce — README
 
-*Version:* 1.1.0
+*Version:* 1.2.0
 
 **Project brief:** MELI-ecommerce is a Spring Boot web application that models a simplified order management system for an e-commerce scenario. It demonstrates a robust service design with entities for `Client`, `Item`, and `Order`, RESTful CRUD endpoints (global and nested), validation, H2-based development DB seeding, profiles for multiple environments, and a global exception handling strategy. The project was shaped after a real incident analysis where misconfiguration and DB node failures caused production outages — the project focuses on resilience, clear API documentation (Swagger), and safe environment separation.
 
@@ -25,6 +25,7 @@ This project maintains a changelog to track releases, fixes, and noteworthy deci
 * [How to run (Linux/maOS and Windows options)](#how-to-run-platform-specific)
 * [Profiles & configuration files](#profiles--configuration-files)
 * [H2 + DB seed (dummy data)](#h2--db-seed-dummy-data)
+* [API Documentation (swagger)](#api-documentation-swagger--openapi)
 * [API endpoints (summary + examples)](#api-endpoints-summary--examples)
 * [Validation & error handling](#validation--error-handling)
 * [Important code locations](#important-code-locations)
@@ -130,6 +131,34 @@ Activate a profile:
 Place `data.sql` in `src/main/resources/`. Example seed inserts 5 rows per table (clients, items, orders). Ensure schema is created first (see Profiles section). Example inserts use table names matching your entities (`CLIENTS`, `ITEMS`, `ORDERS`) and date strings `YYYY-MM-DD`.
 
 ---
+
+## API Documentation (Swagger / OpenAPI)
+
+This project includes **Springdoc OpenAPI** integration for automatically generated and interactive API documentation.
+
+### Overview
+
+* Swagger UI is available once the app is running.
+* Each REST controller, DTO, and field includes annotations (`@Operation`, `@Schema`, etc.) to enrich the documentation.
+* The docs describe available endpoints, request/response formats, parameter validation rules, and example payloads.
+
+### Accessing the Documentation
+
+After starting the application (any profile):
+
+* **Swagger UI:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+* **OpenAPI JSON:** [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+* **OpenAPI YAML:** [http://localhost:8080/v3/api-docs.yaml](http://localhost:8080/v3/api-docs.yaml)
+
+### Configuration Summary
+
+The Swagger/OpenAPI setup is initialized automatically by **Springdoc** through the `springdoc-openapi-starter-webmvc-ui` dependency.
+An optional configuration class (e.g., `SwaggerConfig`) defines metadata such as API title, version, description, and contact information.
+
+### Notes
+
+* The documentation dynamically reflects validation annotations and response schemas.
+* You don’t need a separate `swagger.yaml` — it’s generated at runtime.
 
 ## API endpoints (summary + examples)
 

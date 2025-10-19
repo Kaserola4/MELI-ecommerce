@@ -4,6 +4,8 @@ import com.pikolinc.meliecommerce.domain.dto.order.OrderCreateForClientDTO;
 import com.pikolinc.meliecommerce.domain.dto.order.OrderResponseDTO;
 import com.pikolinc.meliecommerce.exception.NotFoundException;
 import com.pikolinc.meliecommerce.service.ClientOrderService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,12 @@ import java.util.List;
 @RequestMapping("/api/v1/clients")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "Clients and Orders scope", description = "Operations of orders scoped to clients")
 class ClientOrderController {
     public final ClientOrderService clientOrderService;
 
     @GetMapping({"/{id}/orders"})
+    @Operation(summary = "Get a page of orders of a certain client")
     public ResponseEntity<List<OrderResponseDTO>> getOrdersByClientId(
             @PathVariable @Min(1) Long id,
             @RequestParam(defaultValue = "0") int page,
@@ -41,6 +45,7 @@ class ClientOrderController {
     }
 
     @GetMapping({"/{clientId}/orders/{orderId}"})
+    @Operation(summary = "Get a single order of a certain client")
     public ResponseEntity<OrderResponseDTO> getOrderByClientAndId(
             @PathVariable @Min(1) Long clientId,
             @PathVariable @Min(1) Long orderId
@@ -54,6 +59,7 @@ class ClientOrderController {
     }
 
     @PostMapping("/{clientId}/orders")
+    @Operation(summary = "Create a order of a certain client")
     public ResponseEntity<OrderResponseDTO> createOrder(
             @PathVariable @Min(1) Long clientId,
             @Valid @RequestBody OrderCreateForClientDTO requestDTO
@@ -63,6 +69,7 @@ class ClientOrderController {
     }
 
     @PutMapping("/{clientId}/orders/{orderId}")
+    @Operation(summary = "Update an order of a certain client")
     public ResponseEntity<OrderResponseDTO> updateOrder(
             @PathVariable @Min(1) Long clientId,
             @PathVariable @Min(1) Long orderId,
@@ -73,6 +80,7 @@ class ClientOrderController {
     }
 
     @DeleteMapping("/{clientId}/orders/{orderId}")
+    @Operation(summary = "Delete an order of a certain client")
     public ResponseEntity<Void> deleteOrder(
             @PathVariable @Min(1) Long clientId,
             @PathVariable @Min(1) Long orderId

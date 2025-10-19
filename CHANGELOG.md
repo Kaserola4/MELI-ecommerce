@@ -1,3 +1,14 @@
+*v1.2.0 - OpenAPI (Swagger)*
+_Added_
+- Swagger configuration class `SwaggerConfig`
+
+_Implemented_
+- Richer documentation using Swagger annotations like `@Tag` or `@Schema`
+
+_Updated_
+- README.md
+- Controllers and DTOs now include Swagger annotations
+
 *v1.1.0 - Environment Support*
 
 _Added_
