@@ -23,9 +23,6 @@ public class ClientService {
 
     public List<ClientResponseDTO> getAllClients(Pageable pageable) {
         List<Client> clients = this.clientRepository.findAll(pageable).getContent();
-
-        if (clients.isEmpty()) throw new NotFoundException("No clients found");
-
         return clients.stream().map(ClientService::toResponseDTO).toList();
     }
 

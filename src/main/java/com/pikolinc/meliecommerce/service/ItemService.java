@@ -19,9 +19,6 @@ public class ItemService {
 
     public List<ItemResponseDTO> getAllItems(Pageable pageable) {
         List<Item> items = this.itemRepository.findAll(pageable).getContent();
-
-        if (items.isEmpty()) throw new NotFoundException("No items found");
-
         return items.stream().map(ItemService::toResponseDTO).toList();
     }
 

@@ -24,9 +24,6 @@ public class OrderService {
 
     public List<OrderResponseDTO> getAllOrders(Pageable pageable) {
         List<Order> orders = this.orderRepository.findAll(pageable).getContent();
-
-        if (orders.isEmpty()) throw new NotFoundException("No orders found");
-
         return orderRepository.findAll(pageable)
                 .stream()
                 .map(OrderService::toResponseDTO)
