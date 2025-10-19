@@ -1,0 +1,855 @@
+openapi: 3.1.0
+info:
+  title: MELI-ecommerce API
+  description: "Spring Boot REST API for managing Clients, Items and Orders"
+  contact:
+    name: Daniel Vargas
+    url: https://kaserola4.github.io/
+    email: Kas4developer@gmail.com
+  version: v1.1.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Clients
+  description: Operations related to Clients
+- name: Clients and Orders scope
+  description: Operations of orders scoped to clients
+- name: Orders
+  description: Operations related to Orders
+- name: Items
+  description: Operations related to Items
+paths:
+  /api/v1/orders/{id}:
+    get:
+      tags:
+      - Orders
+      summary: Get a single order with the given id
+      operationId: getOrder
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderResponseDTO"
+    put:
+      tags:
+      - Orders
+      summary: Update an order with the given id
+      operationId: updateOrder
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderResponseDTO"
+    delete:
+      tags:
+      - Orders
+      summary: Delete an order with the given id
+      operationId: deleteOrder
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/items/{id}:
+    get:
+      tags:
+      - Items
+      summary: Get a single item with the given id
+      operationId: getItemById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ItemResponseDTO"
+    put:
+      tags:
+      - Items
+      summary: Update an item of the given id
+      operationId: updateItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemUpdateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ItemResponseDTO"
+    delete:
+      tags:
+      - Items
+      summary: Delete the item of the given id
+      operationId: deleteItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/clients/{id}:
+    get:
+      tags:
+      - Clients
+      summary: Get a single client
+      description: Returns the client with the given id
+      operationId: getClientById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClientResponseDTO"
+    put:
+      tags:
+      - Clients
+      summary: Update a client information
+      description: Updates a new client with the given ClientUpdateDTO as the request
+        body
+      operationId: updateItem_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientUpdateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClientResponseDTO"
+    delete:
+      tags:
+      - Clients
+      summary: Delete a client
+      description: Deletes the user with the given id
+      operationId: deleteItem_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/clients/{clientId}/orders/{orderId}:
+    get:
+      tags:
+      - Clients and Orders scope
+      summary: Get a single order of a certain client
+      operationId: getOrderByClientAndId
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderResponseDTO"
+    put:
+      tags:
+      - Clients and Orders scope
+      summary: Update an order of a certain client
+      operationId: updateOrder_1
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreateForClientDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderResponseDTO"
+    delete:
+      tags:
+      - Clients and Orders scope
+      summary: Delete an order of a certain client
+      operationId: deleteOrder_1
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: OK
+  /api/v1/orders:
+    get:
+      tags:
+      - Orders
+      summary: Get a page of orders
+      operationId: getAllOrders
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderResponseDTO"
+    post:
+      tags:
+      - Orders
+      summary: Create a new order
+      operationId: createOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderResponseDTO"
+  /api/v1/orders/:
+    get:
+      tags:
+      - Orders
+      summary: Get a page of orders
+      operationId: getAllOrders_1
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderResponseDTO"
+    post:
+      tags:
+      - Orders
+      summary: Create a new order
+      operationId: createOrder_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderResponseDTO"
+  /api/v1/items/:
+    get:
+      tags:
+      - Items
+      summary: Get a page of Items
+      operationId: getAllItems
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ItemResponseDTO"
+    post:
+      tags:
+      - Items
+      summary: Create an item
+      operationId: addItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ItemResponseDTO"
+  /api/v1/items:
+    get:
+      tags:
+      - Items
+      summary: Get a page of Items
+      operationId: getAllItems_1
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ItemResponseDTO"
+    post:
+      tags:
+      - Items
+      summary: Create an item
+      operationId: addItem_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ItemResponseDTO"
+  /api/v1/clients/{clientId}/orders:
+    post:
+      tags:
+      - Clients and Orders scope
+      summary: Create a order of a certain client
+      operationId: createOrder_2
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreateForClientDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrderResponseDTO"
+  /api/v1/clients/:
+    get:
+      tags:
+      - Clients
+      summary: Get a page of clients
+      description: Returns a page of registered clients
+      operationId: getAllClients
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClientResponseDTO"
+    post:
+      tags:
+      - Clients
+      summary: Creates a new client
+      description: Creates a new client with the given ClientCreateDTO as the request
+        body
+      operationId: addClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClientResponseDTO"
+  /api/v1/clients:
+    get:
+      tags:
+      - Clients
+      summary: Get a page of clients
+      description: Returns a page of registered clients
+      operationId: getAllClients_1
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClientResponseDTO"
+    post:
+      tags:
+      - Clients
+      summary: Creates a new client
+      description: Creates a new client with the given ClientCreateDTO as the request
+        body
+      operationId: addClient_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClientResponseDTO"
+  /api/v1/clients/{id}/orders:
+    get:
+      tags:
+      - Clients and Orders scope
+      summary: Get a page of orders of a certain client
+      operationId: getOrdersByClientId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderResponseDTO"
+components:
+  schemas:
+    OrderCreateDTO:
+      type: object
+      description: Order data transfer object used in creation requests
+      properties:
+        clientId:
+          type: integer
+          format: int64
+          description: Client unique Identifier
+          example: 1
+        itemId:
+          type: integer
+          format: int64
+          description: Item unique Identifier
+          example: 4
+        purchaseDate:
+          type: string
+          format: date
+          description: Order purchase date
+          example: 2025-10-4
+        deliveryDate:
+          type: string
+          format: date
+          description: Order delivery date
+          example: 20215-09-01
+      required:
+      - clientId
+      - deliveryDate
+      - itemId
+      - purchaseDate
+    ClientResponseDTO:
+      type: object
+      description: Client Response data transfer object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Client unique ID
+          example: 1
+        name:
+          type: string
+          description: Client name
+          example: Daniel Vargas
+        address:
+          type: string
+          description: Client address
+          example: Address 5
+        age:
+          type: integer
+          format: int32
+          description: Client age
+          example: 23
+    ItemResponseDTO:
+      type: object
+      description: Item Response data transfer object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Item unique Identifier
+          example: 20
+        name:
+          type: string
+          description: The name of the item
+          example: iPhone 15
+        description:
+          type: string
+          description: Description of the item
+          example: The latest iPhone and the best...
+        price:
+          type: number
+          format: double
+          description: The price of the item
+          example: 3000
+    OrderResponseDTO:
+      type: object
+      description: Order data transfer object that the server sends back given a request
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Order unique Identifier
+          example: 2
+        clientResponseDTO:
+          $ref: "#/components/schemas/ClientResponseDTO"
+          description: Client summary of order
+        itemResponseDTO:
+          $ref: "#/components/schemas/ItemResponseDTO"
+          description: Item summary of order
+        purchaseDate:
+          type: string
+          format: date
+          description: Order purchase date
+          example: 2022-02-04
+        deliveryDate:
+          type: string
+          format: date
+          description: Order delivery date
+          example: 2022-03-04
+    ItemUpdateDTO:
+      type: object
+      description: Item data transfer object for updating an Item
+      properties:
+        name:
+          type: string
+          description: The name of the item
+          example: iPhone 15
+          minLength: 1
+        description:
+          type: string
+          description: Description of the item
+          example: The latest iPhone and the best...
+        price:
+          type: number
+          format: double
+          description: The price of the item
+          example: 3000
+      required:
+      - name
+    ClientUpdateDTO:
+      type: object
+      description: Client data transfer object to request the update of a certain
+        client
+      properties:
+        name:
+          type: string
+          description: Client name
+          example: Daniel Vargas
+          minLength: 1
+        address:
+          type: string
+          description: Client address
+          example: Address 5
+        age:
+          type: integer
+          format: int32
+          description: Client age
+          example: 23
+      required:
+      - name
+    OrderCreateForClientDTO:
+      type: object
+      description: Data transfer object that represents the request of making a new
+        order for a certain client
+      properties:
+        itemId:
+          type: integer
+          format: int64
+          description: Item unique Identifier
+          example: 3
+        purchaseDate:
+          type: string
+          format: date
+          description: Order purchase date
+          example: 2025-02-02
+        deliveryDate:
+          type: string
+          format: date
+          description: Order delivery date
+          example: 2025-02-02
+      required:
+      - deliveryDate
+      - itemId
+      - purchaseDate
+    ItemCreateDTO:
+      type: object
+      description: Item data transfer object to request the creation of a new item
+      properties:
+        name:
+          type: string
+          description: The name of the item
+          example: iPhone 15
+          minLength: 1
+        description:
+          type: string
+          description: Description of the item
+          example: The latest iPhone and the best...
+        price:
+          type: number
+          format: double
+          description: The price of the item
+          example: 3000
+      required:
+      - name
+      - price
+    ClientCreateDTO:
+      type: object
+      description: Client data transfer object to request the creation of a new client
+      properties:
+        name:
+          type: string
+          description: Client name
+          example: Daniel Vargas
+          minLength: 1
+        address:
+          type: string
+          description: Client address
+          example: Street 5
+        age:
+          type: integer
+          format: int32
+          description: Client age
+          example: 23
+      required:
+      - age
+      - name
