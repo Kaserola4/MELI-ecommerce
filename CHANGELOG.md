@@ -1,5 +1,21 @@
-*v1.2.0 - OpenAPI (Swagger)*
+*v1.3.0 - Integration Tests*
+
 _Added_
+- Integration test classses under package `integration`
+- Swagger yaml file
+
+_Implemented_
+
+- Integration tests
+
+_Updated_
+- README.md
+
+
+*v1.2.0 - OpenAPI (Swagger)*
+
+_Added_
+
 - Swagger configuration class `SwaggerConfig`
 
 _Implemented_

@@ -29,7 +29,6 @@ This project maintains a changelog to track releases, fixes, and noteworthy deci
 * [API endpoints (summary + examples)](#api-endpoints-summary--examples)
 * [Validation & error handling](#validation--error-handling)
 * [Important code locations](#important-code-locations)
-* [Troubleshooting](#troubleshooting)
 * [Extras & future improvements](#extras--future-improvements)
 
 ---
@@ -108,6 +107,13 @@ We include cross-platform startup scripts to simplify running the app with the c
 
 ## Profiles & configuration files
 
+| Profile  | Purpose                        | Database                            | Runs Application | Runs Tests |
+| -------- | ------------------------------ | ----------------------------------- | ---------------- | ---------- |
+| **dev**  | Default for local development  | H2 (in-memory)                      | ✅ Yes            | ⚪ No       |
+| **test** | Used by automated test suite   | H2 (in-memory, auto reset per test) | ⚪ No             | ✅ Yes      |
+| **prod** | Production-ready configuration | External DB                         | ✅ Yes            | ⚪ No       |
+
+
 Files in `src/main/resources/`:
 
 * `application.yml` — shared settings + default active profile (`dev`).
@@ -123,6 +129,8 @@ Activate a profile:
 * Use the platform specific start script.
 
 **Note:** For `data.sql` to run after the schema is created, ensure dev/test profiles use `spring.jpa.hibernate.ddl-auto=create` or `update` **and** `spring.sql.init.mode=always`.
+
+
 
 ---
 
