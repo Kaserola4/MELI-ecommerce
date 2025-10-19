@@ -1,6 +1,6 @@
 # MELI-ecommerce — README
 
-*Version:* 1.0.0
+*Version:* 1.1.0
 
 **Project brief:** MELI-ecommerce is a Spring Boot web application that models a simplified order management system for an e-commerce scenario. It demonstrates a robust service design with entities for `Client`, `Item`, and `Order`, RESTful CRUD endpoints (global and nested), validation, H2-based development DB seeding, profiles for multiple environments, and a global exception handling strategy. The project was shaped after a real incident analysis where misconfiguration and DB node failures caused production outages — the project focuses on resilience, clear API documentation (Swagger), and safe environment separation.
 
@@ -28,7 +28,8 @@ This project maintains a changelog to track releases, fixes, and noteworthy deci
 * [API endpoints (summary + examples)](#api-endpoints-summary--examples)
 * [Validation & error handling](#validation--error-handling)
 * [Important code locations](#important-code-locations)
-* [Key design & team decisions (with justifications)](#key-design--team-decisions-with-justifications)
+* [Troubleshooting](#troubleshooting)
+* [Extras & future improvements](#extras--future-improvements)
 
 ---
 
@@ -117,7 +118,8 @@ Activate a profile:
 
 * `SPRING_PROFILES_ACTIVE=dev` (env var), or
 * `java -jar target/meliecommerce.jar --spring.profiles.active=prod`, or
-* `./mvnw spring-boot:run -Dspring-boot.run.profiles=test`
+* `./mvnw spring-boot:run -Dspring-boot.run.profiles=test` or
+* Use the platform specific start script.
 
 **Note:** For `data.sql` to run after the schema is created, ensure dev/test profiles use `spring.jpa.hibernate.ddl-auto=create` or `update` **and** `spring.sql.init.mode=always`.
 
@@ -229,3 +231,14 @@ curl -X POST http://localhost:8080/api/v1/clients/1/orders \
 4. **Validation split**: `MethodArgumentNotValidException` for bodies, `ConstraintViolationException` for path vars/params
 
     * *Why:* Provides precise errors and consistent 400 responses.
+5. **H2 for dev/test, external DB for prod**
+
+    * *Why:* Fast dev iteration and clean tests with in-memory DB; production should use persistent DB and `ddl-auto=validate`.
+
+## Extras & future improvements
+* Add **MapStruct** to eliminate boilerplate mapping between entities and DTOs (compile-time safe).
+* Add **Springdoc OpenAPI / Swagger** for interactive API docs (e.g., `/swagger-ui.html`).
+* Add **integration tests** with `@SpringBootTest` and `test` profile.
+* Introduce **DTO versioning** if API evolves (v1 → v2).
+* Add **security** (Spring Security) and per-client authorization (only allow clients to access their data).
+

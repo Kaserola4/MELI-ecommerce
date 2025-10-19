@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://ep-wild-cherry-add06zd9-pooler.c-2.us-east-1.aws.neon.tech/neondb
+    url: ${DB_URL}
     driver-class-name: org.postgresql.Driver
     username: ${DB_USER}
     password: ${DB_PASSWORD}
