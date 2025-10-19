@@ -34,7 +34,7 @@ INSERT INTO clients (id, name, address, age) VALUES (5, 'Luis', 'Calle 5', 35);
 -- ---------------------------
 -- Items
 -- ---------------------------
-INSERT INTO ITEMS (id, name, description, price) VALUES (1, 'Laptop', 'Gaming Laptop', 1200.00);
+INSERT INTO ITEMS (id, name, description, price) VALUES (1, 'Laptop', 'Gaming Laptop in production', 1200.00);
 INSERT INTO ITEMS (id, name, description, price) VALUES (2, 'Phone', 'Smartphone', 800.00);
 INSERT INTO ITEMS (id, name, description, price) VALUES (3, 'Headphones', 'Noise-cancelling', 150.00);
 INSERT INTO ITEMS (id, name, description, price) VALUES (4, 'Keyboard', 'Mechanical Keyboard', 100.00);
