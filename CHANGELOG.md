@@ -1,3 +1,39 @@
+*v1.3.1 - Javadoc documentation*
+
+_Added_
+- Javadoc support  
+
+_Updated_
+
+- README.md
+
+*v1.3.0 - Integration Tests*
+
+_Added_
+- Integration test classses under package `integration`
+- Swagger yaml file
+
+_Implemented_
+
+- Integration tests
+
+_Updated_
+- README.md
+
+
+*v1.2.0 - OpenAPI (Swagger)*
+
+_Added_
+
+- Swagger configuration class `SwaggerConfig`
+
+_Implemented_
+- Richer documentation using Swagger annotations like `@Tag` or `@Schema`
+
+_Updated_
+- README.md
+- Controllers and DTOs now include Swagger annotations
+
 *v1.1.0 - Environment Support*
 
 _Added_
