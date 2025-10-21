@@ -1,6 +1,6 @@
 # MELI-ecommerce — README
 
-*Version:* 1.2.0
+*Version:* 1.3.1
 
 **Project brief:** MELI-ecommerce is a Spring Boot web application that models a simplified order management system for an e-commerce scenario. It demonstrates a robust service design with entities for `Client`, `Item`, and `Order`, RESTful CRUD endpoints (global and nested), validation, H2-based development DB seeding, profiles for multiple environments, and a global exception handling strategy. The project was shaped after a real incident analysis where misconfiguration and DB node failures caused production outages — the project focuses on resilience, clear API documentation (Swagger), and safe environment separation.
 
@@ -26,6 +26,7 @@ This project maintains a changelog to track releases, fixes, and noteworthy deci
 * [Profiles & configuration files](#profiles--configuration-files)
 * [H2 + DB seed (dummy data)](#h2--db-seed-dummy-data)
 * [API Documentation (swagger)](#api-documentation-swagger--openapi)
+* [Javadoc Documentation](#javadoc-documentation)
 * [API endpoints (summary + examples)](#api-endpoints-summary--examples)
 * [Validation & error handling](#validation--error-handling)
 * [Important code locations](#important-code-locations)
@@ -166,7 +167,101 @@ An optional configuration class (e.g., `SwaggerConfig`) defines metadata such as
 ### Notes
 
 * The documentation dynamically reflects validation annotations and response schemas.
-* You don’t need a separate `swagger.yaml` — it’s generated at runtime.
+* You don't need a separate `swagger.yaml` — it's generated at runtime.
+
+---
+
+## Javadoc Documentation
+
+This project includes comprehensive **Javadoc** documentation for all classes, methods, and important code components. Javadocs provide detailed technical documentation that complements the Swagger API docs by documenting implementation details, design decisions, and code-level specifications.
+
+### Overview
+
+* Javadoc comments follow standard conventions and document all public APIs, services, controllers, repositories, DTOs, and entities.
+* Documentation includes class-level descriptions, method parameters, return values, exceptions thrown, and usage examples where applicable.
+* The generated HTML documentation provides easy navigation between related classes and packages.
+
+### Generating Javadoc
+
+To generate the Javadoc documentation, run the following Maven command from the project root:
+
+```bash
+./mvnw clean javadoc:javadoc
+```
+
+This command will:
+
+1. Clean any previous build artifacts
+2. Generate Javadoc HTML files for all documented classes
+3. Place the output in `target/reports/apidocs/`
+
+### Accessing the Generated Documentation
+
+After generating the Javadocs:
+
+1. Navigate to `target/reports/apidocs/` in your project directory
+2. Open `index.html` in your web browser
+3. Browse packages, classes, and methods through the navigation panel
+
+**Quick access path:** `file:///path/to/your/project/target/reports/apidocs/index.html`
+
+### Platform-Specific Notes
+
+#### Linux / macOS
+
+```bash
+# Generate Javadoc
+./mvnw clean javadoc:javadoc
+
+# Open in default browser (Linux)
+xdg-open target/reports/apidocs/index.html
+
+# Open in default browser (macOS)
+open target/reports/apidocs/index.html
+```
+
+#### Windows
+
+```cmd
+# Generate Javadoc
+mvnw.cmd clean javadoc:javadoc
+
+# Open in default browser
+start target\reports\apidocs\index.html
+```
+
+### What's Documented
+
+The Javadoc covers:
+
+* **Entities:** Domain models with field descriptions and relationships
+* **DTOs:** Request and response objects with validation rules and field constraints
+* **Services:** Business logic implementation with method contracts and exception handling
+* **Controllers:** REST endpoints with parameter descriptions and response codes
+* **Repositories:** Data access layer with custom query documentation
+* **Exceptions:** Custom exception classes and their usage contexts
+* **Configuration:** Application configuration classes and their purposes
+
+### Integration with IDE
+
+Most modern IDEs (IntelliJ IDEA, Eclipse, VS Code) automatically parse Javadoc comments and display them:
+
+* Hover over a method or class to see its documentation
+* Use IDE shortcuts to view full Javadoc (e.g., `Ctrl+Q` in IntelliJ, `F2` in Eclipse)
+* Quick documentation popups show parameter types, return values, and descriptions
+
+### Best Practices
+
+When contributing to this project, follow these Javadoc conventions:
+
+* Document all public classes, methods, and fields
+* Use `@param` tags for all method parameters
+* Use `@return` for methods that return values
+* Use `@throws` to document checked and significant runtime exceptions
+* Include `@see` references to related classes or methods
+* Add `@since` tags for new features in version updates
+* Use code examples in `<pre>` tags for complex usage scenarios
+
 
 ## API endpoints (summary + examples)
 
@@ -268,14 +363,18 @@ curl -X POST http://localhost:8080/api/v1/clients/1/orders \
 4. **Validation split**: `MethodArgumentNotValidException` for bodies, `ConstraintViolationException` for path vars/params
 
     * *Why:* Provides precise errors and consistent 400 responses.
+
 5. **H2 for dev/test, external DB for prod**
 
     * *Why:* Fast dev iteration and clean tests with in-memory DB; production should use persistent DB and `ddl-auto=validate`.
 
+6. **Comprehensive Javadoc documentation**
+
+    * *Why:* Provides detailed technical documentation for developers, complements Swagger API docs, and serves as inline code reference for maintainability.
+
 ## Extras & future improvements
+
 * Add **MapStruct** to eliminate boilerplate mapping between entities and DTOs (compile-time safe).
-* Add **Springdoc OpenAPI / Swagger** for interactive API docs (e.g., `/swagger-ui.html`).
-* Add **integration tests** with `@SpringBootTest` and `test` profile.
 * Introduce **DTO versioning** if API evolves (v1 → v2).
 * Add **security** (Spring Security) and per-client authorization (only allow clients to access their data).
-
+* Consider **automated Javadoc generation** as part of CI/CD pipeline to keep documentation in sync with deployments.

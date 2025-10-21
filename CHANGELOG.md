@@ -1,3 +1,12 @@
+*v1.3.1 - Javadoc documentation*
+
+_Added_
+- Javadoc support  
+
+_Updated_
+
+- README.md
+
 *v1.3.0 - Integration Tests*
 
 _Added_
