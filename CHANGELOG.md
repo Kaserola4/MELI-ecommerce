@@ -1,3 +1,15 @@
+*v1.3.2 - Folder structure and minor fixes*
+ 
+_Added_
+- Folder structure in README.md
+
+_fix_
+- development h2 was not dropping its seeded data each time the env is set.
+
+_Updated_
+- README.md
+- application-dev.yml
+
 *v1.3.1 - Javadoc documentation*
 
 _Added_

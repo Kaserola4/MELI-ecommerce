@@ -1,6 +1,6 @@
 # MELI-ecommerce — README
 
-*Version:* 1.3.1
+*Version:* 1.3.2
 
 **Project brief:** MELI-ecommerce is a Spring Boot web application that models a simplified order management system for an e-commerce scenario. It demonstrates a robust service design with entities for `Client`, `Item`, and `Order`, RESTful CRUD endpoints (global and nested), validation, H2-based development DB seeding, profiles for multiple environments, and a global exception handling strategy. The project was shaped after a real incident analysis where misconfiguration and DB node failures caused production outages — the project focuses on resilience, clear API documentation (Swagger), and safe environment separation.
 
@@ -44,6 +44,66 @@ This project maintains a changelog to track releases, fixes, and noteworthy deci
 ---
 
 ## Project structure & description
+
+```md
+src/main/
+├── java/com/pikolinc/meliecommerce/
+│   ├── config/
+│   │   └── SwaggerConfig.java              # OpenAPI/Swagger configuration
+│   │
+│   ├── controller/                          # REST API endpoints (presentation layer)
+│   │   ├── ClientController.java           # Global client CRUD operations
+│   │   ├── ClientOrderController.java      # Nested client-scoped order endpoints
+│   │   ├── ItemController.java             # Global item CRUD operations
+│   │   └── OrderController.java            # Global order CRUD operations
+│   │
+│   ├── domain/                              # Domain models and DTOs
+│   │   ├── dto/                            # Data Transfer Objects
+│   │   │   ├── client/                     # Client-related DTOs
+│   │   │   │   ├── ClientCreateDTO.java   # Request DTO for creating clients
+│   │   │   │   ├── ClientResponseDTO.java # Response DTO with full client data
+│   │   │   │   └── ClientUpdateDTO.java   # Request DTO for updating clients
+│   │   │   ├── item/                       # Item-related DTOs
+│   │   │   │   ├── ItemCreateDTO.java     # Request DTO for creating items
+│   │   │   │   ├── ItemResponseDTO.java   # Response DTO with full item data
+│   │   │   │   └── ItemUpdateDTO.java     # Request DTO for updating items
+│   │   │   └── order/                      # Order-related DTOs
+│   │   │       ├── OrderCreateDTO.java    # Request DTO for creating orders (global)
+│   │   │       ├── OrderCreateForClientDTO.java  # Request DTO for client-scoped orders
+│   │   │       └── OrderResponseDTO.java  # Response DTO with full order data
+│   │   │
+│   │   └── entity/                         # JPA entities (persistence models)
+│   │       ├── Client.java                 # Client entity (customers)
+│   │       ├── Item.java                   # Item entity (products)
+│   │       └── Order.java                  # Order entity (purchase transactions)
+│   │
+│   ├── exception/                           # Exception handling
+│   │   ├── ForbiddenException.java         # Custom 403 exception (access denied)
+│   │   ├── GlobalExceptionControllerAdvice.java  # Global exception handler
+│   │   ├── NotFoundException.java          # Custom 404 exception (resource not found)
+│   │   └── ResponseException.java          # Custom business exception with configurable status
+│   │
+│   ├── repository/                          # Data access layer (Spring Data JPA)
+│   │   ├── ClientRepository.java           # Client database operations
+│   │   ├── ItemRepository.java             # Item database operations
+│   │   └── OrderRepository.java            # Order database operations
+│   │
+│   ├── service/                             # Business logic layer
+│   │   ├── ClientOrderService.java         # Client-scoped order business logic
+│   │   ├── ClientService.java              # Client business logic
+│   │   ├── ItemService.java                # Item business logic
+│   │   └── OrderService.java               # Global order business logic
+│   │
+│   └── MeliEcommerceApplication.java       # Spring Boot main application class
+│
+└── resources/
+    ├── application.yml                      # Main application configuration
+    ├── application-dev.yml                  # Development profile configuration
+    ├── application-test.yml                 # Test profile configuration
+    ├── application-prod.yml                 # Production profile configuration
+    └── data.sql                             # Database seed data (H2 initialization)
+
+```
 
 High-level responsibilities:
 
