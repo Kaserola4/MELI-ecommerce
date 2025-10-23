@@ -65,7 +65,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/items/2",
+							"raw": "localhost:8080/api/v1/items/1",
 							"host": [
 								"localhost"
 							],
@@ -74,7 +74,7 @@
 								"api",
 								"v1",
 								"items",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -95,7 +95,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/items/3",
+							"raw": "localhost:8080/api/v1/items/1",
 							"host": [
 								"localhost"
 							],
@@ -104,7 +104,7 @@
 								"api",
 								"v1",
 								"items",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -128,7 +128,7 @@
 							"raw": "{\r\n    \"name\": \"test\",\r\n    \"description\": \"hello\",\r\n    \"price\": 22.23\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/clients/",
+							"raw": "localhost:8080/api/v1/clients",
 							"host": [
 								"localhost"
 							],
@@ -136,8 +136,7 @@
 							"path": [
 								"api",
 								"v1",
-								"clients",
-								""
+								"clients"
 							]
 						}
 					},
@@ -340,7 +339,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/clients/2/orders/18",
+							"raw": "localhost:8080/api/v1/clients/1orders/1",
 							"host": [
 								"localhost"
 							],
@@ -349,9 +348,8 @@
 								"api",
 								"v1",
 								"clients",
-								"2",
-								"orders",
-								"18"
+								"1orders",
+								"1"
 							]
 						}
 					},
@@ -380,13 +378,13 @@
 					"response": []
 				},
 				{
-					"name": "POST Order to client with id 2",
+					"name": "POST Order to client with id 1",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"itemId\": 3,\r\n    \"purchaseDate\": \"2025-10-23\",\r\n    \"deliveryDate\": \"2025-10-24\"\r\n}",
+							"raw": "{\r\n    \"itemId\": 1,\r\n    \"purchaseDate\": \"2025-10-23\",\r\n    \"deliveryDate\": \"2025-10-24\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -394,7 +392,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/clients/2/orders",
+							"raw": "localhost:8080/api/v1/clients/1/orders",
 							"host": [
 								"localhost"
 							],
@@ -403,7 +401,7 @@
 								"api",
 								"v1",
 								"clients",
-								"2",
+								"1",
 								"orders"
 							]
 						}
@@ -416,7 +414,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/clients/2/orders/1",
+							"raw": "localhost:8080/api/v1/clients/1/orders/1",
 							"host": [
 								"localhost"
 							],
@@ -425,7 +423,7 @@
 								"api",
 								"v1",
 								"clients",
-								"2",
+								"1",
 								"orders",
 								"1"
 							]
@@ -440,7 +438,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"itemId\": 4,\r\n    \"purchaseDate\": \"2025-10-30\",\r\n    \"deliveryDate\": \"2025-10-20\"\r\n}",
+							"raw": "{\r\n    \"itemId\": 2,\r\n    \"purchaseDate\": \"2025-10-30\",\r\n    \"deliveryDate\": \"2025-10-20\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
