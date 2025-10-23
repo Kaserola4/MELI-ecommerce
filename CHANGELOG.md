@@ -1,3 +1,12 @@
+*v1.3.3 - Added Postman collection*
+
+_Added_
+- Postman Collection in root `MELI-ecommerce.postman_collection.json`
+
+_Updated_
+- README.md
+
+
 *v1.3.2 - Folder structure and minor fixes*
  
 _Added_

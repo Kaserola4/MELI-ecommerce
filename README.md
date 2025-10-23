@@ -324,8 +324,12 @@ When contributing to this project, follow these Javadoc conventions:
 
 
 ## API endpoints (summary + examples)
+#### Postman Collection
+You can get the postman collection `MELI-ecommerce.postman_collection.json`
+and try the prepared tests.
 
 ### Items
+
 
 * `GET /api/v1/items?page=0&size=10` — paginated items
   Example: `GET http://localhost:8080/api/v1/items?page=0&size=10`
